@@ -4,6 +4,7 @@ import com.example.exception.CustomException;
 import com.example.exception.ErrorCode;
 import com.example.novel.dto.BoardRequestDto;
 import com.example.novel.dto.BoardResponseDto;
+import com.example.novel.entity.Board;
 import com.example.novel.model.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,14 @@ public class BoardApiController {
     @GetMapping("/boards")
     public List<BoardResponseDto> findAll() {
         return boardService.findAll();
+    }
+
+    /**
+     * 게시글 리스트 조회
+     */
+    @GetMapping("/boards/{id}")
+    public Board findBoard(@PathVariable Long id) {
+        return boardService.findBoard(id);
     }
 
     /**

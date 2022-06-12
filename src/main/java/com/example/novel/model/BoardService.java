@@ -41,6 +41,13 @@ public class BoardService {
     }
 
     /**
+     * 게시글 리스트 조회
+     */
+    public Board findBoard(Long boardId) {
+        return boardRepository.findById(boardId).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+    }
+
+    /**
      * 게시글 수정
      */
     @Transactional
