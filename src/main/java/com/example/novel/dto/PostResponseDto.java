@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 @Getter
 public class PostResponseDto {
 
-    private Long id; // PK
+    private Long pid; // PK
     private String title; // 제목
     private String content; // 내용
     private Long hits; // 조회 수
     private LocalDateTime createdDate; // 생성일
 
     public PostResponseDto(Post entity) {
-        this.id = entity.getPid();
+        this.pid = entity.getPid();
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.hits = entity.getHits();

@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class Post {
+public class Post extends BaseTime {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
 
     private String title; // 제목
@@ -20,22 +20,20 @@ public class Post {
 
     private Long hits; // 조회 수
 
-    private LocalDateTime createdDate = LocalDateTime.now(); // 생성일
-
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @Builder
-    public Post(String title, String content, Long hits, LocalDateTime createdDate) {
+    public Post(String title, String content, Board board, Long hits) {
         this.title = title;
         this.content = content;
         this.hits = hits;
-        this.createdDate = createdDate;
+        this.board = board;
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
-        this.createdDate = LocalDateTime.now();
     }
 }

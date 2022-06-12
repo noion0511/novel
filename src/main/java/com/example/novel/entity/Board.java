@@ -1,17 +1,16 @@
 package com.example.novel.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class Board {
+public class Board extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
@@ -22,9 +21,10 @@ public class Board {
 
     private String writer; // 작성자
 
-    private Long totalHits; // 조회 수
+    private Long totalHits; // 전체 조회 수
 
-    private LocalDateTime createdDate = LocalDateTime.now(); // 생성일
+    @LastModifiedDate
+    private LocalDateTime createdDate = null; // 생성일
 
     @Builder
     public Board(String title, String content, String writer, Long totalHits) {

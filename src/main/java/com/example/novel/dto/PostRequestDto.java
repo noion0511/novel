@@ -12,13 +12,14 @@ public class PostRequestDto {
 
     private String title; // 제목
     private String content; // 내용
-    private String writer; // 작성자
+    private Long boardId;
 
-    public Post toEntity() {
+    public Post toEntity(Board board) {
         return Post.builder()
                 .title(title)
                 .content(content)
                 .hits(0L)
+                .board(board)
                 .build();
     }
 }

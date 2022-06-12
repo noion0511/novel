@@ -2,6 +2,7 @@ package com.example.novel.controller;
 
 import com.example.novel.dto.PostRequestDto;
 import com.example.novel.dto.PostResponseDto;
+import com.example.novel.entity.Board;
 import com.example.novel.model.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,8 @@ public class PostApiController {
      * 게시글 리스트 조회
      */
     @GetMapping("/posts")
-    public List<PostResponseDto> findAll() {
-        return postService.findAll();
+    public List<PostResponseDto> findAll(Long boardId) {
+        return postService.findAll(boardId);
     }
 
     /**

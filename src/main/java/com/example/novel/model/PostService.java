@@ -4,7 +4,9 @@ import com.example.exception.CustomException;
 import com.example.exception.ErrorCode;
 import com.example.novel.dto.PostRequestDto;
 import com.example.novel.dto.PostResponseDto;
+import com.example.novel.entity.Board;
 import com.example.novel.entity.Post;
+import com.example.novel.repository.BoardRepository;
 import com.example.novel.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostService {
 
+    private final BoardRepository boardRepository;
     private final PostRepository postRepository;
 
     /**
@@ -26,17 +29,18 @@ public class PostService {
     @Transactional
     public Long save(final PostRequestDto params) {
 
-        Post entity = postRepository.save(params.toEntity());
+        Post entity = postRepository.save(params.toEntity(boardRepository.findById(params.getBoardId()).get()));
         return entity.getPid();
     }
 
     /**
      * 게시글 리스트 조회
      */
-    public List<PostResponseDto> findAll() {
 
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
-        List<Post> list = postRepository.findAll(sort);
+    public List<PostResponseDto> findAll(Long boardId) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "pid");
+        Board board = boardRepository.findById(boardId).get();
+        List<Post> list =  postRepository.findAllByBoard(board, sort);
         return list.stream().map(PostResponseDto::new).collect(Collectors.toList());
     }
 
