@@ -22,27 +22,22 @@ public class Board {
 
     private String writer; // 작성자
 
-    private int hits; // 조회 수
-
-    private char deleteYn; // 삭제 여부
+    private Long totalHits; // 조회 수
 
     private LocalDateTime createdDate = LocalDateTime.now(); // 생성일
 
-    private LocalDateTime modifiedDate; // 수정일
-
     @Builder
-    public Board(String title, String content, String writer, int hits, char deleteYn) {
+    public Board(String title, String content, String writer, Long totalHits) {
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.hits = hits;
-        this.deleteYn = deleteYn;
+        this.totalHits = totalHits;
     }
 
     public void update(String title, String content, String writer) {
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.modifiedDate = LocalDateTime.now();
+        this.createdDate = LocalDateTime.now();
     }
 }

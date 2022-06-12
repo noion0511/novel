@@ -22,8 +22,7 @@ public class BoardTests {
             .title("1번 게시글 제목")
             .content("1번 게시글 내용")
             .writer("1번 작성자")
-            .hits(0)
-            .deleteYn('N')
+            .totalHits(0L)
             .build();
 
     @Test
