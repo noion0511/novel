@@ -35,7 +35,7 @@ public class BoardApiController {
     }
 
     /**
-     * 게시글 리스트 조회
+     * 게시글 리스트 조회 1개
      */
     @GetMapping("/boards/{id}")
     public Board findBoard(@PathVariable Long id) {

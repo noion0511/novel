@@ -45,6 +45,13 @@ public class PostService {
     }
 
     /**
+     * 게시글 조회
+     */
+    public Post findPost(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+    }
+
+    /**
      * 게시글 수정
      */
     @Transactional
