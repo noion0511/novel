@@ -5,6 +5,7 @@ import com.example.exception.ErrorCode;
 import com.example.novel.dto.BoardRequestDto;
 import com.example.novel.dto.BoardResponseDto;
 import com.example.novel.entity.Board;
+import com.example.novel.entity.Post;
 import com.example.novel.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final PostService postService;
 
     /**
      * 게시글 생성
@@ -35,7 +37,7 @@ public class BoardService {
      */
     public List<BoardResponseDto> findAll() {
 
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
         List<Board> list = boardRepository.findAll(sort);
         return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }

@@ -15,6 +15,12 @@ public class PostResponseDto {
     private Long hits; // 조회 수
     private LocalDateTime createdDate; // 생성일
 
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    private int sequence;
+
     public PostResponseDto(Post entity) {
         this.pid = entity.getPid();
         this.title = entity.getTitle();
@@ -22,5 +28,4 @@ public class PostResponseDto {
         this.hits = entity.getHits();
         this.createdDate = entity.getCreatedDate();
     }
-
 }

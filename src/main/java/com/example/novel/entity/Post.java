@@ -18,6 +18,7 @@ public class Post extends BaseTime {
 
     private String content; // 내용
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
     private Long hits; // 조회 수
 
     @ManyToOne()

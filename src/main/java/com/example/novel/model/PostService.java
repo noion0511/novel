@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,7 +42,12 @@ public class PostService {
         Sort sort = Sort.by(Sort.Direction.DESC, "pid");
         Board board = boardRepository.findById(boardId).get();
         List<Post> list =  postRepository.findAllByBoard(board, sort);
-        return list.stream().map(PostResponseDto::new).collect(Collectors.toList());
+        List<PostResponseDto> dtoList = list.stream().map(PostResponseDto::new).collect(Collectors.toList());
+        for (int i = dtoList.size() - 1; i >= 0; i--) {
+            dtoList.get(i).setSequence(dtoList.size() - i);
+        }
+
+        return dtoList;
     }
 
     /**
@@ -71,5 +77,14 @@ public class PostService {
         postRepository.delete(entity);
 
         return entity.getPid() != null;
+    }
+
+    /**
+     * 조회수 증가
+     */
+    @Transactional
+    public void updateHits(Long pid) {
+        postRepository.updateHits(pid);
+        boardRepository.updateHits(pid);
     }
 }

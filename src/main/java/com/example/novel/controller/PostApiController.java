@@ -38,6 +38,7 @@ public class PostApiController {
      */
     @GetMapping("/posts/{id}")
     public Post findPost(@PathVariable Long id) {
+        postService.updateHits(id);
         return postService.findPost(id);
     }
 

@@ -12,7 +12,7 @@ public class BoardResponseDto {
     private String title; // 제목
     private String content; // 내용
     private String writer; // 작성자
-    private Long hits; // 조회 수
+    private Long totalHits; // 조회 수
     private LocalDateTime createdDate; // 생성일
 
     public BoardResponseDto(Board entity) {
@@ -20,7 +20,7 @@ public class BoardResponseDto {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.writer = entity.getWriter();
-        this.hits = entity.getTotalHits();
+        this.totalHits = entity.getTotalHits();
         this.createdDate = entity.getCreatedDate();
     }
 
