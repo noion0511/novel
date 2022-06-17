@@ -46,7 +46,7 @@ public class PostApiController {
      * 게시글 수정
      */
     @PatchMapping("/posts/{id}")
-    public Long save(@PathVariable final Long id, @RequestBody final PostRequestDto params) {
+    public Long update(@PathVariable final Long id, @RequestBody final PostRequestDto params) {
         return postService.update(id, params);
     }
 

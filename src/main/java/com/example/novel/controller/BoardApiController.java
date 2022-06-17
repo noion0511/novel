@@ -9,6 +9,7 @@ import com.example.novel.model.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,8 +23,8 @@ public class BoardApiController {
      * 게시글 생성
      */
     @PostMapping("/boards")
-    public Long save(@RequestBody final BoardRequestDto params) {
-        return boardService.save(params);
+    public Long save(HttpServletRequest request, @RequestBody final BoardRequestDto params) {
+        return boardService.save(request, params);
     }
 
     /**
@@ -46,8 +47,8 @@ public class BoardApiController {
      * 게시글 수정
      */
     @PatchMapping("/boards/{id}")
-    public Long save(@PathVariable final Long id, @RequestBody final BoardRequestDto params) {
-        return boardService.update(id, params);
+    public Long save(HttpServletRequest request, @PathVariable final Long id, @RequestBody final BoardRequestDto params) {
+        return boardService.update(request, id, params);
     }
 
     /**

@@ -1,38 +1,70 @@
 package com.example.novel.entity;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Getter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
+@Data
 @Builder
-public class User {
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql의 AUTO_INCREMENT를 그대로 사용
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(unique = true)
+    private String username;
+    private String password;
 
-    @Column(nullable = false)
-    private String account;
 
-    private String email;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
-    private String phoneNumber;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
 
-    @Column(nullable = false)
-    private String createdBy;
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
 
-    private LocalDateTime updatedAt;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
 
-    private String updatedBy;
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
 
 
