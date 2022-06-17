@@ -1,6 +1,7 @@
 package com.example.novel.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,22 +18,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql의 AUTO_INCREMENT를 그대로 사용
     private Long id;
 
-    @Column(nullable = false)
-    private String account;
-
     private String email;
 
-    private String phoneNumber;
+    private String nickName;
 
-    @Column(nullable = false)
+    private String password;
+
+    @LastModifiedDate
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private String createdBy;
+    @Builder
+    public User(String email, String nickName, String password) {
+        this.email = email;
+        this.nickName = nickName;
+        this.password = password;
+        this.createdAt = LocalDateTime.now();
+    }
 
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
+    public void update(String email, String nickName, String password) {
+        this.email = email;
+        this.nickName = nickName;
+        this.password = password;
+        this.createdAt = LocalDateTime.now();
+    }
 }
 
 
